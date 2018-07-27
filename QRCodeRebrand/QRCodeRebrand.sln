@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeRebrand", "Assembly-CSharp.csproj", "{3D0BA46A-869C-B882-A5F2-BA7003A5ECDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRCodeRebrand", "Assembly-CSharp-Editor.csproj", "{9161C8F7-6057-9BE6-4F15-F349CDE5297F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D0BA46A-869C-B882-A5F2-BA7003A5ECDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0BA46A-869C-B882-A5F2-BA7003A5ECDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0BA46A-869C-B882-A5F2-BA7003A5ECDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0BA46A-869C-B882-A5F2-BA7003A5ECDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9161C8F7-6057-9BE6-4F15-F349CDE5297F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9161C8F7-6057-9BE6-4F15-F349CDE5297F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9161C8F7-6057-9BE6-4F15-F349CDE5297F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9161C8F7-6057-9BE6-4F15-F349CDE5297F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
