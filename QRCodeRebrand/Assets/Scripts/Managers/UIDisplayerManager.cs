@@ -40,6 +40,8 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     private int ActualSensorSelected = 0;
     private bool Scanning = false;
     private bool FoldUI = false;
+    private bool dirty = false;
+    private bool ApiAlreadyCalled = false;
     private GameObject UIGlobalContainer;
     private GameObject UIMainPanel;
     private GameObject UIMainSelectorView;
@@ -61,7 +63,7 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     private GameObject DownCaptorsList;
 
     //Specific fields in the sensor view
-    private static int MAXLISTCAPTORSIZE = 3; //Max number of element that can be display in the Sub UI part of list
+    private int MAXLISTCAPTORSIZE = 3; //Max number of element that can be display in the Sub UI part of list
     private GameObject Title;
     private GameObject ServicePoint;
     private GameObject Uplink;
@@ -93,14 +95,7 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     private Dictionary<GameObject, Texture2D> TextureStack = new Dictionary<GameObject, Texture2D>(); //Contain texture for graph, indexed by gameObject. Avoid unecessary call to API.
     #endregion
 
-    //Haxs
-    private Vector3 visible = new Vector3(1, 1, 1);
-    private Vector3 hidden = new Vector3(0, 0, 0);
-    public Texture2D test;
-    public GameObject cube;
-
     //API communication
-    public static string jsonTest = "{ \"device_SP_assetTag\": \"SP000301\", \"device_SP_sysID\": \"850706c761de2f160161de30a11222e6\", \"device_SP_context\": \"CTXCAF\", \"device_SP_description\": \"Gouter - tension batterie\", \"device_SP_altitude\": null, \"device_SP_localization\": null, \"device_SP_active\": null, \"device_assetTag\": \"TAG000000486\", \"device_sysId\": \"850706c75d564e1b015d56696abb3cf6\", \"device_dev_EUI\": \"A81758FFFE0309C1\", \"device_context\": \"CTXCAF\", \"device_last_uplink_time\": null, \"device_type_name\": \"Elsys ELT1 UBat\", \"device_type_category\": null, \"device_type_code\": \"ELT1STD\", \"device_type_context\": \"CTXCAF\", \"sensor_mapping_size\": 4, \"dtStart\": \"2018-06-06T05:00:00.000Z\", \"dtEnd\": \"2018-06-06T06:00:00.000Z\", \"result\": [ { \"sensor_title\": \"U batterie\", \"measure_title\": \"Electric potential (V)\", \"measures\": [ { \"date\": \"2018-06-06T05:00:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:01:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:02:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:03:00.000Z\", \"value\": 50.2 }, { \"date\": \"2018-06-06T05:04:00.000Z\", \"value\": 51.9 }, { \"date\": \"2018-06-06T05:05:00.000Z\", \"value\": 52.9 }, { \"date\": \"2018-06-06T05:06:00.000Z\", \"value\": 53.7 }, { \"date\": \"2018-06-06T05:07:00.000Z\", \"value\": 56.6 }, { \"date\": \"2018-06-06T05:08:00.000Z\", \"value\": 57.5 }, { \"date\": \"2018-06-06T05:09:00.000Z\", \"value\": 57.4 }, { \"date\": \"2018-06-06T05:10:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:11:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:12:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:13:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:14:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:15:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:16:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:17:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:18:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:19:00.000Z\", \"value\": 55.8 }, { \"date\": \"2018-06-06T05:20:00.000Z\", \"value\": 57.6 }, { \"date\": \"2018-06-06T05:21:00.000Z\", \"value\": 57.5 }, { \"date\": \"2018-06-06T05:22:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:23:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:24:00.000Z\", \"value\": 56.4 }, { \"date\": \"2018-06-06T05:25:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:26:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:27:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:28:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:29:00.000Z\", \"value\": 57.2 }, { \"date\": \"2018-06-06T05:30:00.000Z\", \"value\": 55.7 }, { \"date\": \"2018-06-06T05:31:00.000Z\", \"value\": 57.6 }, { \"date\": \"2018-06-06T05:32:00.000Z\", \"value\": 57.5 }, { \"date\": \"2018-06-06T05:33:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:34:00.000Z\", \"value\": 57.5 }, { \"date\": \"2018-06-06T05:35:00.000Z\", \"value\": 57 }, { \"date\": \"2018-06-06T05:36:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:37:00.000Z\", \"value\": 57.2 }, { \"date\": \"2018-06-06T05:38:00.000Z\", \"value\": 56.6 }, { \"date\": \"2018-06-06T05:39:00.000Z\", \"value\": 57.5 }, { \"date\": \"2018-06-06T05:40:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:41:00.000Z\", \"value\": 56.9 }, { \"date\": \"2018-06-06T05:42:00.000Z\", \"value\": 56 }, { \"date\": \"2018-06-06T05:43:00.000Z\", \"value\": 56.5 }, { \"date\": \"2018-06-06T05:44:00.000Z\", \"value\": 57.2 }, { \"date\": \"2018-06-06T05:45:00.000Z\", \"value\": 57.2 }, { \"date\": \"2018-06-06T05:46:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:47:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:48:00.000Z\", \"value\": 55.8 }, { \"date\": \"2018-06-06T05:49:00.000Z\", \"value\": 55.9 }, { \"date\": \"2018-06-06T05:50:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:51:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:52:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:53:00.000Z\", \"value\": 56.2 }, { \"date\": \"2018-06-06T05:54:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:55:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:56:00.000Z\", \"value\": 57.2 }, { \"date\": \"2018-06-06T05:57:00.000Z\", \"value\": 57.1 }, { \"date\": \"2018-06-06T05:58:00.000Z\", \"value\": 56.2 }, { \"date\": \"2018-06-06T05:59:00.000Z\", \"value\": 57.1 } ] }, { \"sensor_title\": \"Temp Local \", \"measure_title\": \"Temperature (°C)\", \"measures\": [ { \"date\": \"2018-06-06T05:00:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:01:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:02:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:03:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:04:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:05:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:06:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:07:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:08:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:09:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:10:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:11:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:12:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:13:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:14:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:15:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:16:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:17:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:18:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:19:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:20:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:21:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:22:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:23:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:24:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:25:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:26:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:27:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:28:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:29:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:30:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:31:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:32:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:33:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:34:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:35:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:36:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:37:00.000Z\", \"value\": 17.6 }, { \"date\": \"2018-06-06T05:38:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:39:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:40:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:41:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:42:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:43:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:44:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:45:00.000Z\", \"value\": 17.7 }, { \"date\": \"2018-06-06T05:46:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:47:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:48:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:49:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:50:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:51:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:52:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:53:00.000Z\", \"value\": 17.8 }, { \"date\": \"2018-06-06T05:54:00.000Z\", \"value\": 17.9 }, { \"date\": \"2018-06-06T05:55:00.000Z\", \"value\": 17.9 }, { \"date\": \"2018-06-06T05:56:00.000Z\", \"value\": 17.9 }, { \"date\": \"2018-06-06T05:57:00.000Z\", \"value\": 17.9 }, { \"date\": \"2018-06-06T05:58:00.000Z\", \"value\": 17.9 }, { \"date\": \"2018-06-06T05:59:00.000Z\", \"value\": 18 } ] }, { \"sensor_title\": \"Humidity Local \", \"measure_title\": \"Humidity (%)\", \"measures\": [ { \"date\": \"2018-06-06T05:00:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:01:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:02:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:03:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:04:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:05:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:06:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:07:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:08:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:09:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:10:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:11:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:12:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:13:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:14:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:15:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:16:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:17:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:18:00.000Z\", \"value\": 26 }, { \"date\": \"2018-06-06T05:19:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:20:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:21:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:22:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:23:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:24:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:25:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:26:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:27:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:28:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:29:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:30:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:31:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:32:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:33:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:34:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:35:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:36:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:37:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:38:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:39:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:40:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:41:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:42:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:43:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:44:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:45:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:46:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:47:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:48:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:49:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:50:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:51:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:52:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:53:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:54:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:55:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:56:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:57:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:58:00.000Z\", \"value\": 27 }, { \"date\": \"2018-06-06T05:59:00.000Z\", \"value\": 27 } ] }, { \"sensor_title\": \"Sensor bat \", \"measure_title\": \"Electric potential (V)\", \"measures\": [ { \"date\": \"2018-06-06T05:00:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:01:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:02:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:03:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:04:00.000Z\", \"value\": 3.569 }, { \"date\": \"2018-06-06T05:05:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:06:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:07:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:08:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:09:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:10:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:11:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:12:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:13:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:14:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:15:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:16:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:17:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:18:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:19:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:20:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:21:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:22:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:23:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:24:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:25:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:26:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:27:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:28:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:29:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:30:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:31:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:32:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:33:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:34:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:35:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:36:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:37:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:38:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:39:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:40:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:41:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:42:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:43:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:44:00.000Z\", \"value\": 3.569 }, { \"date\": \"2018-06-06T05:45:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:46:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:47:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:48:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:49:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:50:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:51:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:52:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:53:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:54:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:55:00.000Z\", \"value\": 3.567 }, { \"date\": \"2018-06-06T05:56:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:57:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:58:00.000Z\", \"value\": 3.564 }, { \"date\": \"2018-06-06T05:59:00.000Z\", \"value\": 3.561 } ] } ] }";
 #if !UNITY_EDITOR
     private REQUEA_LIB api = new REQUEA_LIB();
 #endif
@@ -216,14 +211,14 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
         }
     }
 
-    private  void ScrollUpCaptors(GameObject go)
+    private void ScrollUpCaptors(GameObject go)
     {
-         DataFiller(IndexOfFirstCaptorLoadedInView - MAXLISTCAPTORSIZE);
+        GraphFiller(IndexOfFirstCaptorLoadedInView - MAXLISTCAPTORSIZE);
     }
 
-    private  void ScrollDownCaptors(GameObject go)
+    private void ScrollDownCaptors(GameObject go)
     {
-         DataFiller(IndexOfFirstCaptorLoadedInView + MAXLISTCAPTORSIZE);
+        GraphFiller(IndexOfFirstCaptorLoadedInView + MAXLISTCAPTORSIZE);
     }
 
     #endregion
@@ -241,18 +236,24 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
         //await DataFiller();
     }
 
-    private  void SwitchToMainSensorView(GameObject go)//go usefull here, will say from wich we retrieve data
+    private void SwitchToMainSensorView(GameObject go)//go usefull here, will say from wich we retrieve data
     {
         ActualSensorSelected = MainSelectorViewArea.IndexOf(go);
-        print(ActualSensorSelected);
-        UIStatus = UIStatus.SensorView;
-        
-        UIMainSensorView.SetActive(true);
-        UIMainGraphView.SetActive(false);
-        UIMainSelectorView.SetActive(false);
-         DataFiller();
-
-
+        try
+        {
+            Sensor s = Sensors[ActualSensorSelected];
+            print(ActualSensorSelected);
+            UIStatus = UIStatus.SensorView;
+            UIMainSensorView.SetActive(true);
+            UIMainGraphView.SetActive(false);
+            UIMainSelectorView.SetActive(false);
+            DataFiller();
+        }
+        catch (Exception e)
+        {
+            print("empty captor selection");
+            //don't swap view and do nothing more
+        }
     }
 
     private void SwitchToMainGraphView(GameObject go)//go usefull here, pass the captor last value object, wich contain the texture
@@ -285,7 +286,7 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     //Data Populating and Data control functions
     #region
     // fill the first main selector or Sensor view with data. The version with lodadedIndex is mainly used for scroll captors data (load a specific array of captor into the Sensor view, Selector view unchange) // MIGHT NEED REWORK FOR DUPLICATE CODE
-    private  void DataFiller()
+    private void DataFiller()
     {
 
         if (UIStatus == UIStatus.MainSelectorView)
@@ -307,7 +308,7 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
         }
         else if (UIStatus == UIStatus.SensorView)
         {
-            Sensor s = null;
+            Sensor s = null; 
             try
             {
                 s = Sensors[ActualSensorSelected];
@@ -320,21 +321,7 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
                     Uplink.GetComponent<Text>().text = ABSENTVALUE;
 
                 ServicePoint.GetComponent<Text>().text = s.device_SP_assetTag;
-                int i = 0;
-                foreach (SensorMapResults smr in s.result)
-                {
-                    if (i < MAXLISTCAPTORSIZE)
-                    {
-                        CaptorsTitle[i].GetComponent<Text>().text = smr.sensor_title;
-                        ImageApiCall(CaptorsLastValue[i]);
-                        
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    i++;
-                }
+                GraphFiller(IndexOfFirstCaptorLoadedInView);
             }
             catch
             {
@@ -344,80 +331,42 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
 
         }
 
-
+        dirty = false;
     }
-    private  void DataFiller(int loadedIndex)
+    private void GraphFiller(int loadedIndex)
     {
 
-        if (UIStatus == UIStatus.MainSelectorView)
-        {
-            int i = 0;
-            GameObject[] MainSelectorViewAreaArray = MainSelectorViewArea.ToArray();
-            foreach (Sensor s in Sensors)
-            {
-                Text txt = MainSelectorViewAreaArray[i].GetComponent<Text>();
-                txt.text = s.device_SP_description;
-                i++;
-            }
-            while (i < MainSelectorViewAreaArray.Length)
-            {
-                Text txt = MainSelectorViewAreaArray[i].GetComponent<Text>();
-                txt.text = ABSENTVALUE;
-                i++;
-            }
-        }
-        else if (UIStatus == UIStatus.SensorView)
-        {
-            Sensor s = null;
-            try
-            {
-                s = Sensors[ActualSensorSelected];
-                //Fill Display with information
-                Title.GetComponent<Text>().text = s.device_SP_description;
-                Description.GetComponent<Text>().text = ABSENTVALUE;
-                if (s.device_last_uplink_time != null)
-                    Uplink.GetComponent<Text>().text = s.device_last_uplink_time;
-                else
-                    Uplink.GetComponent<Text>().text = ABSENTVALUE;
 
-                ServicePoint.GetComponent<Text>().text = s.device_SP_assetTag;
+        Sensor s = null;
 
-                if ((IndexOfFirstCaptorLoadedInView + 2 <= s.result.Length - 1))
+        try
+        {
+            s = Sensors[ActualSensorSelected];
+            for (int i = loadedIndex; i < (MAXLISTCAPTORSIZE + loadedIndex); i++)
+            {
+                if (i <= s.result.Length - 1)
                 {
-                    for (int i = loadedIndex; i < MAXLISTCAPTORSIZE + loadedIndex; i++)
-                    {
-                        if (i <= s.result.Length - 1)
-                        {
-                            CaptorsTitle[i % MAXLISTCAPTORSIZE].GetComponent<Text>().text = s.result[i].sensor_title;
-                            ImageApiCall(CaptorsLastValue[i % MAXLISTCAPTORSIZE]);
-                            
-                        }
-                        else
-                        {
-                            CaptorsLastValue[i % MAXLISTCAPTORSIZE].GetComponent<RawImage>().texture = null;
-                            CaptorsTitle[i % MAXLISTCAPTORSIZE].GetComponent<Text>().text = ABSENTVALUE;
-                        }
-                        i++;
-                    }
-                    IndexOfFirstCaptorLoadedInView = loadedIndex;
+                    CaptorsTitle[i % MAXLISTCAPTORSIZE].GetComponent<Text>().text = s.result[i].sensor_title;
+                    ImageApiCall(CaptorsLastValue[i % MAXLISTCAPTORSIZE]);
+
                 }
                 else
                 {
-                    print("Out of bound");
+                    CaptorsLastValue[i % MAXLISTCAPTORSIZE].GetComponent<RawImage>().texture = null;
+                    CaptorsTitle[i % MAXLISTCAPTORSIZE].GetComponent<Text>().text = ABSENTVALUE;
                 }
-
-
             }
-            catch
-            {
-                //Just continue
-                Title.GetComponent<Text>().text = ABSENTVALUE;
-            }
+            IndexOfFirstCaptorLoadedInView = loadedIndex;
 
         }
-
+        catch
+        {
+            //Just continue
+        }
 
     }
+
+
     // Clean useless data and make space in the first main selector view 
     private void DataCleaner()
     {
@@ -425,32 +374,32 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     }
 
     //Add a sensor from a Json object or create it
-    private  void AddSensor(string s)
+    private void AddSensor(string s)
     {
         if (!(Sensors.Count < MAXSENSOR))
         {
             Sensors.RemoveAt(0); //TEMPORAR !! ALWAY REMOVE THE FIRST ELEMENT. NEED TO IMPLEMENT ALGO OF REPLACEMENT.
         }
         Sensors.Add(CreateSensor(s));
-         DataFiller();
+
     }
-    private  void AddSensor(JObject json)
+    private void AddSensor(JObject json)
     {
         if (!(Sensors.Count < MAXSENSOR))
         {
             Sensors.RemoveAt(0); //TEMPORAR !! ALWAY REMOVE THE FIRST ELEMENT. NEED TO IMPLEMENT ALGO OF REPLACEMENT.
         }
         Sensors.Add(CreateSensor(json));
-         DataFiller();
+
     }
-    private  void AddSensor(Sensor sensor)
+    private void AddSensor(Sensor sensor)
     {
         if (!(Sensors.Count < MAXSENSOR))
         {
             Sensors.RemoveAt(0); //TEMPORAR !! ALWAY REMOVE THE FIRST ELEMENT. NEED TO IMPLEMENT ALGO OF REPLACEMENT.
         }
         Sensors.Add(sensor);
-         DataFiller();
+
     }
     private Sensor CreateSensor(JObject j)
     {
@@ -482,7 +431,11 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
             foreach (Sensor s in Sensors)
             {
                 if (s.device_SP_assetTag == tag)
+                {
                     r = true;
+                    break;
+                }
+
             }
         }
 
@@ -504,7 +457,13 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
                 if (result != null)
                 {
                     print("Resultat de la requête API :" + result.device_assetTag);
-                    AddSensor(result);
+                    //I know it's hideous AF, but I don't have time to search further for job sync across thread.
+                    if (!IsSPTagExist(s))
+                    {
+                        AddSensor(result);
+                        dirty = true;
+                    }
+
                 }
                 else
                 {
@@ -558,9 +517,16 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
 #endif
     }
 
-    private async void ScanSucess(string s)
+    private void ScanSucess(string result)
     {
-         SensorApiCall(s);
+        //Should implement a timer : one api call per second on scan succes. A lot more efficient than the actual not-a-solution-at-all-and-maybe-the-wurst.
+        if (!ApiAlreadyCalled)
+        {
+            ApiAlreadyCalled = true;
+            SensorApiCall(result);
+            ApiAlreadyCalled = false;
+        }
+
     }
 
     #endregion
@@ -694,13 +660,8 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
 
         //Update the UI with the final state of the initialisation
         SwitchToMainSelectorView(this.gameObject);//The object given in parameter is useless here
-        
+
         print("UIManager enable");
-        
-        //For test purpose
-        AddSensor(jsonTest);
-        print("Senseur ajouté, utilisé la case 0");
-        
         DataFiller();
         UpdateUI();
 
@@ -715,6 +676,8 @@ public class UIDisplayerManager : Singleton<UIDisplayerManager>
     void FixedUpdate()
     {
         UpdateUI();
+        if (dirty)
+            DataFiller(); //perf killer !
     }
 
 }

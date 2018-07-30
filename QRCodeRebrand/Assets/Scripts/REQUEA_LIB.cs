@@ -51,10 +51,13 @@ public class REQUEA_LIB : MonoBehaviour
     private static string username = "RequeaDev";
     private static string password = "Mandoralen38";
     private string KeyAccess = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(username + ":" + password));
-#endregion
+    #endregion
 
-    //Local API private variable
-#region
+    //Local API private variable (here for cache request implementation)
+    #region
+    private static int MAXCACHESIZE = 10;
+    private static DateTime MAXCACHEDURATION;
+    private Dictionary<string,Dictionary<DateTime,string>> cache = new Dictionary<string, Dictionary<DateTime, string>>();
 #endregion
 
     //Network and HTTP request tools
@@ -151,20 +154,29 @@ public class REQUEA_LIB : MonoBehaviour
             print("Highcharts init in Requea lib done");
 
         }
-
-        string link = await HighchartsClient.GetChartImageLinkFromOptionsAsync(data);
-        print(link);
         Texture2D tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
-        using (WWW www = new WWW(link))
+        try
         {
-            while (!www.isDone)
+            string link = await HighchartsClient.GetChartImageLinkFromOptionsAsync(data);
+            print(link);
+            
+            using (WWW www = new WWW(link))
             {
-                //Wait... I know it's an horrific solution but the only one working after 50+ different test. No waiter, getter, or observable allowed on Unity classes, and cannot make yield work correctly their
+                while (!www.isDone)
+                {
+                    //Wait... I know it's an horrific solution but the only one working after 50+ different test. No waiter, getter, or observable allowed on Unity classes, and cannot make yield work correctly their
+                }
+
+                www.LoadImageIntoTexture(tex);
             }
-
-            www.LoadImageIntoTexture(tex);
+            
+            
         }
-
+        catch (Exception e)
+        {
+            print("exception in api highchart call :" + e.Message);
+        }
+        
         return tex;
     }
     
