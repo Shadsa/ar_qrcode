@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sysBundle sysCreateTime="2018-06-15T13:33:53Z" sysId="2c94c5f164039371016403a6ff10527a" sysUpdateTime="2018-06-18T06:43:42Z" sysVersion="1">
+    <sysTitle>API for IOT Data</sysTitle>
+    <sysProvider>requea</sysProvider>
+    <sysName>iot.api</sysName>
+    <sysPrefix>iot</sysPrefix>
+    <sysBundleId>com.requea.iot.api</sysBundleId>
+    <sysBundleVersion>1.0.0</sysBundleVersion>
+    <sysDescription>
+        <text lang="en"><![CDATA[API designed for retrieve data from iot database in JSON. Mainly used for QR decode]]></text>
+        <text lang="fr"><![CDATA[API faite pour récupérer des données sur les capteurs depuis la base iot. Créée dans le cadre du projet QR Code]]></text>
+    </sysDescription>
+    <sysExport/>
+</sysBundle>

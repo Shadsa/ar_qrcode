@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sysApplication sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114a374a4" sysUpdateTime="2018-07-31T12:13:31Z" sysVersion="80">
+    <sysName>APIService</sysName>
+    <sysTitle>
+        <text lang="en"><![CDATA[API Service]]></text>
+        <text lang="fr"><![CDATA[API Service]]></text>
+    </sysTitle>
+    <sysPrefix>iot</sysPrefix>
+    <sysType>normal</sysType>
+    <sysStorageType/>
+    <sysFastFullTextIndex/>
+    <sysBundle sysId="2c94c5f164039371016403a6ff10527a" sysLabel="API for IOT Data (requea.iot.api) "/>
+    <sysDescription/>
+    <sysPersisted>false</sysPersisted>
+    <sysAccessRight>4028808afedcc83500fedcc84bb500d2</sysAccessRight>
+    <sysAction sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b774ad" sysUpdateTime="2018-06-15T13:44:54Z" type="sysAction">
+        <sysOverride>false</sysOverride>
+        <sysName>additem</sysName>
+        <sysType>HideInMenu</sysType>
+        <sysInstance>true</sysInstance>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b774ae" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>Operation</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysOperationName>NewItem</sysOperationName>
+            <sysInput>data</sysInput>
+            <sysParam>param.item</sysParam>
+            <sysOutput>data</sysOutput>
+        </sysActionStep>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b874af" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>Form</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysInput>data</sysInput>
+            <sysDisplayAllProperties>true</sysDisplayAllProperties>
+        </sysActionStep>
+    </sysAction>
+    <sysAction sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b874b0" sysUpdateTime="2018-06-15T13:44:54Z" type="sysAction">
+        <sysOverride>false</sysOverride>
+        <sysName>getitem</sysName>
+        <sysType>HideInMenu</sysType>
+        <sysInstance>true</sysInstance>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b874b1" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>Operation</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysOperationName>GetItem</sysOperationName>
+            <sysInput>data</sysInput>
+            <sysParam>param.item</sysParam>
+            <sysOutput>data</sysOutput>
+        </sysActionStep>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b874b2" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>View</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysInput>data</sysInput>
+            <sysDisplayAllProperties>true</sysDisplayAllProperties>
+        </sysActionStep>
+    </sysAction>
+    <sysAction sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b974b3" sysUpdateTime="2018-06-15T13:44:54Z" type="sysAction">
+        <sysOverride>false</sysOverride>
+        <sysName>edititem</sysName>
+        <sysType>HideInMenu</sysType>
+        <sysInstance>true</sysInstance>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b974b4" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>Operation</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysOperationName>GetItem</sysOperationName>
+            <sysInput>data</sysInput>
+            <sysParam>param.item</sysParam>
+            <sysOutput>data</sysOutput>
+        </sysActionStep>
+        <sysActionStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b974b5" sysUpdateTime="2018-06-15T13:44:54Z" type="sysActionStep">
+            <sysType>Form</sysType>
+            <sysApplicationName>iotAPIService</sysApplicationName>
+            <sysInput>data</sysInput>
+            <sysDisplayAllProperties>true</sysDisplayAllProperties>
+        </sysActionStep>
+    </sysAction>
+    <sysOperation sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114a574a5" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperation">
+        <sysName>New</sysName>
+        <sysInputType>None</sysInputType>
+        <sysOutputType>Document</sysOutputType>
+        <sysOutputAppName>iotAPIService</sysOutputAppName>
+        <sysOperationStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114a574a6" sysUpdateTime="2018-06-15T13:48:22Z" type="sysOperationStep">
+            <sysType>Document</sysType>
+            <sysName>New</sysName>
+        </sysOperationStep>
+    </sysOperation>
+    <sysOperation sysCreateTime="2018-06-18T06:46:14Z" sysId="2c94c5f164119d36016411a4dcc3222a" sysUpdateTime="2018-07-31T12:13:27Z" type="sysOperation">
+        <sysName>GetDeviceGlobalInformationJSON</sysName>
+        <sysDescription/>
+        <sysInputType>String</sysInputType>
+        <sysParamType/>
+        <sysOutputType>JSON</sysOutputType>
+        <sysAccessRight>4028808afedcc83500fedcc84bb500d2</sysAccessRight>
+        <sysSlowOperation>false</sysSlowOperation>
+        <sysOperationStep sysCreateTime="2018-06-18T06:49:56Z" sysId="2c94c5f164119d36016411a84056224a" sysUpdateTime="2018-06-27T14:07:52Z" type="sysOperationStep">
+            <sysType>Script</sysType>
+            <sysScript lang="js" package="com.requea.iot.api" path="iotAPIService_op_GetDeviceGlobalInformation_2c94c5f164119d36016411a84056224a" storage="inline"><![CDATA[/* Récupération des paramètres */
+//var params = param.split("|");
+var device_id = data;
+//Date parameter could mess due to the non-UTC format in database (basicly, the last 1h of data in DB are not retrieve directly sicne they'r stocked as non UTC time)
+var dtEnd = new Date('June 06, 2018 08:00:00');
+var dtStart = new Date();
+dtStart.setTime(dtEnd.getTime() - 3600000);
+var result = [];
+var subresult = {};
+
+/*Recherche d’une entité avec un Number unique*/
+var flt = new Filter("iotServicePoint");
+flt.and("iotNumber","=",device_id);
+var deviceSP = flt.getFirst();
+
+if(deviceSP !== undefined && deviceSP !== null){    
+    var device = deviceSP.iotDevice;
+    var device_type = deviceSP.iotDeviceType;
+    
+    
+    if(device_type ==null){
+         print("ERROR LOG : Device_Type NULL in database from device ! REST Call fail");
+    }else{        
+        var sensorMapping = device_type.iotSensorMapping;
+        
+        
+        if(sensorMapping == null){
+             print("ERROR LOG : Sensor_mapping NULL in database from device_type ! REST Call fail");
+        }else{ 
+           for(var i=0;i<sensorMapping.length;i++){
+               
+                var key = sensorMapping[i].iotJsonKey;
+                /*Récupération des données pour un sensor mapping*/
+                var d = TimeSeriesMongoClient.getData("Measures", device.sysId,key, dtStart, dtEnd);
+                if(d.length > 0){                   
+                    var dpostprocess=[];
+                    for(var j=0; j<d.length;j++){
+                        var measure = {};
+                        measure["date"]=d[j][0];
+                        measure["value"]=d[j][1];
+                        dpostprocess.push(measure);
+                    }
+                    print(sensorMapping[i].iotTitle.en);
+                    subresult["sensor_title"] = sensorMapping[i].iotTitle.en;
+                    subresult["measure_title"] = sensorMapping[i].iotMeasure.sysTitle.en;
+                    subresult["measures"] = dpostprocess;
+                    result[i] = subresult;
+                    subresult = {};
+                }else{
+                   print("ERRROR LOG : Database not load or reach during the API call");
+                }
+            }
+           
+        }
+    }
+}  
+
+/* Retour du résultat au format Json*/
+
+var res = {
+    "device_SP_assetTag" : device_id,
+    "device_SP_sysID" : deviceSP.sysId,
+    "device_SP_context" : deviceSP.iotContext.iotCode,
+    "device_SP_description" : deviceSP.iotDescription,
+    "device_SP_altitude" : deviceSP.iotGeoAltitude,
+    "device_SP_localization" : deviceSP.iotGeoLoc,
+    "device_SP_active" : deviceSP.iotActive,
+    "device_assetTag" : device.iotAssetTag,
+    "device_sysId" : device.sysId,
+    "device_dev_EUI" : device.iotDevEUI,
+    "device_context" : device.iotContext.iotCode,
+    "device_last_uplink_time": device.iotLastUplinkTime,
+    "device_type_name" : device_type.iotName,
+    "device_type_category" : device_type.iotCategory,    
+    "device_type_code" : device_type.iotCode,
+    "device_type_context" : device_type.iotContext.iotCode,
+    "sensor_mapping_size" : sensorMapping.length,
+    "dtStart" : dtStart, 
+    "dtEnd" : dtEnd, 
+    "result" : result
+};
+
+
+data = JSON.stringify(res);]]></sysScript>
+            <sysSUExecute>false</sysSUExecute>
+        </sysOperationStep>
+    </sysOperation>
+    <sysOperation sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114a774a7" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperation">
+        <sysName>NewItem</sysName>
+        <sysInputType>Document</sysInputType>
+        <sysInputAppName>iotAPIService</sysInputAppName>
+        <sysParamType>String</sysParamType>
+        <sysOutputType>Document</sysOutputType>
+        <sysOutputAppName>iotAPIService</sysOutputAppName>
+        <sysOperationStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114a774a8" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperationStep">
+            <sysType>Script</sysType>
+            <sysScript lang="js" package="" path="" storage="inline"><![CDATA[data = data.newItem(param);]]></sysScript>
+            <sysSUExecute>false</sysSUExecute>
+        </sysOperationStep>
+    </sysOperation>
+    <sysOperation sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114ab74a9" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperation">
+        <sysName>GetItem</sysName>
+        <sysInputType>Document</sysInputType>
+        <sysInputAppName>iotAPIService</sysInputAppName>
+        <sysParamType>String</sysParamType>
+        <sysOutputType>Document</sysOutputType>
+        <sysOutputAppName>iotAPIService</sysOutputAppName>
+        <sysOperationStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114ab74aa" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperationStep">
+            <sysType>Script</sysType>
+            <sysScript lang="js" package="" path="" storage="inline"><![CDATA[data = data.getItem(param);]]></sysScript>
+            <sysSUExecute>false</sysSUExecute>
+        </sysOperationStep>
+    </sysOperation>
+    <sysOperation sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b374ab" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperation">
+        <sysName>RemoveItem</sysName>
+        <sysInputType>Document</sysInputType>
+        <sysInputAppName>iotAPIService</sysInputAppName>
+        <sysParamType>String</sysParamType>
+        <sysOutputType>Document</sysOutputType>
+        <sysOutputAppName>iotAPIService</sysOutputAppName>
+        <sysOperationStep sysCreateTime="2018-06-15T13:44:54Z" sysId="2c94c5f164039371016403b114b374ac" sysUpdateTime="2018-06-15T13:44:54Z" type="sysOperationStep">
+            <sysType>Script</sysType>
+            <sysScript lang="js" package="" path="" storage="inline"><![CDATA[data.removeItem(param);]]></sysScript>
+            <sysSUExecute>false</sysSUExecute>
+        </sysOperationStep>
+    </sysOperation>
+    <sysRestService>custom</sysRestService>
+    <sysRestServiceParams sysCreateTime="2018-06-15T13:48:09Z" sysId="2c94c5f164039371016403b40fe274f8" sysUpdateTime="2018-07-31T12:13:14Z" type="sysRestServiceParams">
+        <sysOperationParam sysCreateTime="2018-06-18T07:30:43Z" sysId="2c94c5f164119d36016411cd956c44ec" sysUpdateTime="2018-06-27T13:56:56Z" type="sysRestServiceOpParam">
+            <sysOperationName>GetDeviceGlobalInformationJSON</sysOperationName>
+            <sysAccessRight>4028808afedcc83500fedcc84bb500d2</sysAccessRight>
+        </sysOperationParam>
+    </sysRestServiceParams>
+    <sysWebService>no</sysWebService>
+</sysApplication>

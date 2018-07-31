@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: API for IOT Data
+Bundle-Vendor: requea
+Bundle-SymbolicName: com.requea.iot.api
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Import-Package: com.requea.app;version="3.0",com.requea.ui,com.requea.
+ ui.taglib,com.requea.ui.taglib.cal,com.requea.ui.taglib.catalog,com.r
+ equea.ui.taglib.data,com.requea.ui.taglib.datachart,com.requea.ui.tag
+ lib.debug,com.requea.ui.taglib.definition,com.requea.ui.taglib.delive
+ ry,com.requea.ui.taglib.design,com.requea.ui.taglib.eval,com.requea.u
+ i.taglib.info,com.requea.ui.taglib.layout,com.requea.ui.taglib.map,co
+ m.requea.ui.taglib.nav,com.requea.ui.taglib.population,com.requea.ui.
+ taglib.search,com.requea.util;version="3.0",com.requea.util.xml;versi
+ on="3.0",javax.servlet,javax.servlet.http,javax.servlet.jsp,javax.ser
+ vlet.jsp.el,javax.servlet.jsp.tagext,org.apache.commons.logging,org.o
+ sgi.framework;version="1.3"
+Bundle-ClassPath: .,../../target/classes
+
